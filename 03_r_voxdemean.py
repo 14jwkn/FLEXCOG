@@ -7,7 +7,7 @@ Output:
 demean_rfMRI_REST*_*.dtseries.nii Demeaned fMRI files.
 
 Usage: 
-    r_voxdemean.py <subject> 
+    03_r_voxdemean.py <subject> 
     
 Arguments:
 

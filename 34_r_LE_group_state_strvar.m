@@ -7,7 +7,7 @@ strvar.h5 Average dFC(t) and LE(t) strength/variability values for the subject.
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_state_strvar(subfile,k,subject)
+function [] = 34_r_LE_group_state_strvar(subfile,k,subject)
 disp(append('Doing: ',subfile,' ',k,' ',subject))
 
 %Add personal folder to the MATLAB path.

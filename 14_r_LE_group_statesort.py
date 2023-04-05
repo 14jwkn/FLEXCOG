@@ -14,7 +14,7 @@ subgroup+'_sortclass.csv' Sorting matrix containing the original ID and new ID.
 'k'+statetype+'.jpg' 2D plots with no labelling.
 
 Usage: 
-    r_LE_group_statesort.py <subfile> <statetype> 
+    14_r_LE_group_statesort.py <subfile> <statetype> 
     
 Arguments:
 

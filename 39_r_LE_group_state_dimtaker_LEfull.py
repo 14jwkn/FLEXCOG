@@ -8,7 +8,7 @@ LEfull_PCreduce.h5 Contains the PCs for the LE(t) across subjects and labels.
 LEfull_PCreduce_explained.txt Contains the variance explained for the PCs.
 
 Usage: 
-    r_LE_group_state_dimtaker_LEfull.py <subgroup> <k> 
+    39_r_LE_group_state_dimtaker_LEfull.py <subgroup> <k> 
     
 Arguments:
 

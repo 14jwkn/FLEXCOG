@@ -9,7 +9,7 @@ colleg_sFC.jpg Color bar for the static FC matrix.
 colleg_dFC.jpg Color bar for the dFC matrix.
 
 Usage: 
-    r_LE_group_state_sFCdFC_vis.py <subfile> <k> 
+    38_r_LE_group_state_sFCdFC_vis.py <subfile> <k> 
     
 Arguments:
     

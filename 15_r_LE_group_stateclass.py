@@ -7,7 +7,7 @@ Output:
 uni_subcent.h5 Universal index clustering.
 
 Usage: 
-    r_LE_group_stateclass.py <subfile> <k> 
+    15_r_LE_group_stateclass.py <subfile> <k> 
     
 Arguments:
 

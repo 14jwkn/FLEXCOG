@@ -8,7 +8,7 @@ LE_strvar.csv Average LE(t) strength/variability values.
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_state_strvar_collect(subfile,k)
+function [] = 35_r_LE_group_state_strvar_collect(subfile,k)
 disp(append('Doing: ',subfile,' ',k))
 
 %Add personal folder to the MATLAB path.

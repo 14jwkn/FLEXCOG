@@ -11,7 +11,7 @@ Output:
 'k'+statetype+'_dist.jpg' Histograms of edge strength values for each state.
 
 Usage: 
-    r_LE_group_state_vis.py <subgroup> <k> <statetype>
+    31_r_LE_group_state_vis.py <subgroup> <k> <statetype>
     
 Arguments:
     

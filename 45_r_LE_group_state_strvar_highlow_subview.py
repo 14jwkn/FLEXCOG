@@ -8,7 +8,7 @@ clim+'_'+statetype+'_'+strvar+'.jpg' Matrix plots for the dFC states for high an
 'global_colleg_'+statetype+'_'+strvar+'.jpg' Color bar for the matrix plots.
 
 Usage: 
-    r_LE_group_state_strvar_highlow_subview.py <subgroup> <k> <strvar>
+    45_r_LE_group_state_strvar_highlow_subview.py <subgroup> <k> <strvar>
     
 Arguments:
 

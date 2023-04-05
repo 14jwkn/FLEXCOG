@@ -7,7 +7,7 @@ Output:
 meansim.csv Contains idiosyncrasies for all subjects.
 
 Usage: 
-    r_LE_group_statesim_gather.py <subgroup> <k> 
+    22_r_LE_group_statesim_gather.py <subgroup> <k> 
     
 Arguments:
     

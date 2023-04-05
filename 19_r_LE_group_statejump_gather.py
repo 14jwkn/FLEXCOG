@@ -7,7 +7,7 @@ Output:
 transmean.csv Contains transition distances for all subjects.
 
 Usage: 
-    r_LE_group_statejump_gather.py <subgroup> <k> 
+    19_r_LE_group_statejump_gather.py <subgroup> <k> 
     
 Arguments:
 

@@ -7,7 +7,7 @@ Output:
 statesim.h5 Contains all idiosyncrasies for each subject.
 
 Usage: 
-    r_LE_group_statesim.py <subgroup> <k> <subject>
+    21_r_LE_group_statesim.py <subgroup> <k> <subject>
     
 Arguments:
     

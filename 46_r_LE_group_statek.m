@@ -9,7 +9,7 @@ metric_group.h5 Contains the CVI values for each k for the group.
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_statek(subfile)
+function [] = 46_r_LE_group_statek(subfile)
 disp(append('Doing ',subfile));
 
 %Add personal folder to the MATLAB path.

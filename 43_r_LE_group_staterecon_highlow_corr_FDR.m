@@ -9,7 +9,7 @@ reconvar_dFC_R_FDR_thres.csv Correlation, thresholded p < 0.05 for FDR-corrected
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_staterecon_highlow_corr_FDR(subgroup,k)
+function [] = 43_r_LE_group_staterecon_highlow_corr_FDR(subgroup,k)
 disp(append('Doing: ',subgroup,' ',k))
 
 %Add personal folder to the MATLAB path.

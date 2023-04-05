@@ -10,7 +10,7 @@ colleg_std.jpg Color bar for the plots.
 dFC_std_dist.jpg Histograms for variability values across edges for each dFC state.
 
 Usage: 
-    r_LE_group_statestd_vis.py <subgroup> <k>
+    33_r_LE_group_statestd_vis.py <subgroup> <k>
     
 Arguments:
     

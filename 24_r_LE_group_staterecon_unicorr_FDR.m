@@ -11,7 +11,7 @@ corr_fullfdr_thres.csv  Original correlations thresholded p < 0.05.
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_staterecon_unicorr_FDR(subgroup,k)
+function [] = 24_r_LE_group_staterecon_unicorr_FDR(subgroup,k)
 disp(append('Doing: ',subgroup,' ',k))
 
 %Set base path and univariate path.

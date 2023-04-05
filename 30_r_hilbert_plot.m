@@ -9,7 +9,7 @@ fMRI_hilbert_2.jpg Hilbert transform plot for a second ROI.
 %}
 
 %Define command line arguments.
-function [] = r_hilbert_plot(subject)
+function [] = 30_r_hilbert_plot(subject)
 disp(append('Doing: ',subject))
 
 %Add personal folder to the MATLAB path.

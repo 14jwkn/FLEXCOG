@@ -9,7 +9,7 @@ LE1D.jpg Contains sample LE(t).
 LE2D.jpg Contains sample LE(t)*LE(t)^T.
 
 Usage: 
-    r_methods.py <subject> 
+    29_r_methods.py <subject> 
     
 Arguments:
 

@@ -9,7 +9,7 @@ avg_substat.csv Dynamics metrics averaged across runs for each subject.
 %}
 
 %Define command line arguments.
-function [] = r_LE_group_statestat(subfile,k)
+function [] = 16_r_LE_group_statestat(subfile,k)
 disp(append('Doing: ',subfile,' ',k))
 
 %Add personal folder to the MATLAB path.

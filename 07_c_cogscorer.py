@@ -8,7 +8,7 @@ cogscores.csv Contains g calculated as PC1.
 gPCAvalidity.csv Contains the variance explained from PCA.
 
 Usage: 
-    c_cogscorer.py <subgroup> 
+    07_c_cogscorer.py <subgroup> 
     
 Arguments:
 

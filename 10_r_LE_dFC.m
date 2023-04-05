@@ -7,7 +7,7 @@ LE_dFC.h5 Phase dFC(t) and LE(t) for all time points.
 %}
 
 %Define command line arguments.
-function [] = r_LE_dFC(run,subject)
+function [] = 10_r_LE_dFC(run,subject)
 %run = run_label
 %subject = subject_ID
 disp(append('Doing ',run,' ',subject));

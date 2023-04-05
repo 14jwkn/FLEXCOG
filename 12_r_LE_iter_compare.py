@@ -8,7 +8,7 @@ Output:
 best_iter.csv For all ks for this subject group, contains the best iteration.  
 
 Usage: 
-    r_LE_iter_compare.py <subfile>
+    12_r_LE_iter_compare.py <subfile>
     
 Arguments:
     

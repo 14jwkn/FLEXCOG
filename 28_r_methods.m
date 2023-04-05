@@ -6,7 +6,7 @@ LE.csv Contains the sample LE(t).
 %}
 
 %Define command line arguments.
-function [] = r_methods(subject)
+function [] = 28_r_methods(subject)
 disp(append('Doing: ',subject))
 
 %Set up I/O.

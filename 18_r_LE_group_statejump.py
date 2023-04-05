@@ -8,7 +8,7 @@ Output:
 statejump.h5 Contains all transition distances for each subject.
 
 Usage: 
-    r_LE_group_statejump.py <subgroup> <k> <subject>
+    18_r_LE_group_statejump.py <subgroup> <k> <subject>
     
 Arguments:
     
