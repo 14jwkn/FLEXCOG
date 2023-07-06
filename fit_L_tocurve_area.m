@@ -1,3 +1,6 @@
+Adapts code from: 
+https://github.com/trendscenter/gift
+
 function [bestx, yfit] = fit_L_tocurve_area(x,y)
 %[bestx, F] = fit_L_tocurve_area(x,y, plotit)
 %

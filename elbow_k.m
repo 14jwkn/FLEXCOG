@@ -1,3 +1,6 @@
+Adapts code from: 
+https://github.com/trendscenter/gift
+
 %Define command line arguments.
 function [results] = elbow_k(X,klist,clusts,cents)
 
@@ -16,7 +19,7 @@ for i=1:size(klist,2)
     d = D((idx-1)*n + (1:n)');
     sumD = accumarray(idx,d,[klist(i),1]);
     
-    % Elbow method
+    %Elbow method.
     [~, R(i)] = cluster_goodness(D,idx);
     tmpSumD = sumD;
     SSE(i) = sum(tmpSumD(:));

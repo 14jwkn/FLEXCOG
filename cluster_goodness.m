@@ -1,3 +1,6 @@
+Adapts code from: 
+https://github.com/trendscenter/gift
+
 function [SSE, R] = cluster_goodness(D, IDX)
 % Get SSE and dispersion ratio
 
