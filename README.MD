@@ -10,13 +10,13 @@ atlasMvec2.csv - Upper triangular matrix vectorization indices.
 
 colenetlabels.txt - Network labels retrieved from: https://github.com/ColeLab/ColeAnticevicNetPartition
 
-arrow3.m - Script for 3D arrow plotting in MATLAB.
+arrow3.m - Script for 3D arrow plotting in MATLAB retrieved from: https://github.com/juanitacabral/LEiDA_Psilocybin
 
-cluster_goodness.m - Script for plotting elbow plot in MATLAB.
+cluster_goodness.m - Script for plotting elbow plot in MATLAB retrieved from: https://github.com/trendscenter/gift
 
-elbow_k.m - Script for plotting elbow plot in MATLAB.
+fit_L_tocurve_area.m - Script for plotting elbow plot in MATLAB retrieved from: https://github.com/trendscenter/gift
 
-fit_L_tocurve_area.m - Script for plotting elbow plot in MATLAB.
+elbow_k.m - Script for plotting elbow plot in MATLAB which uses cluster_goodness.m and fit_L_tocurve_area.m.
 
 
 
