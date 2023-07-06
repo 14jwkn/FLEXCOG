@@ -21,6 +21,7 @@ fit_L_tocurve_area.m - Script for plotting elbow plot in MATLAB.
 
 
 Analysis:
+
 Step01_r_param_maker.py - Read HCP1200 subjects with resting-state fMRI scans based on the directory structure extracted from DataLad.
 
 Step02_r_fmri_get.txt - For each resting-state subject ID, extract the associated 3T REST1-2 ICA-FIX surface-based fMRI data files from the DataLad repository.
