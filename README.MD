@@ -94,33 +94,31 @@ Step35_r_LE_group_state_strvar.m - For the subject group and the specified k, ca
 
 Step36_r_LE_group_state_strvar_collect.m - For the subject group and the specified k, gather the average dFC(t) strength and variability across edges for each state and across all states from all subjects.
 
-Step37_r_LE_group_state_strvar.R - For the subject group and the specified k, find the Pearson's correlation between edge-averaged dFC(t) strength and variability across all states, and within each state and plot corresponding scatter plots.
+Step37_r_LE_group_state_sFCdFC.m - For the subject group and the specified k, calculate the occurrence-weighted dFC(t) mean and Pearson's correlation static FC for each subject. Calculate the correlation and average across all subjects.
 
-Step38_r_LE_group_state_sFCdFC.m - For the subject group and the specified k, calculate the occurrence-weighted dFC(t) mean and Pearson's correlation static FC for each subject. Calculate the correlation and average across all subjects.
+Step38_r_LE_group_state_sFCdFC_vis.py - For the subject file group and selected k, plot the static FC and occurrence-weighted dFC(t) matrices.
 
-Step39_r_LE_group_state_sFCdFC_vis.py - For the subject file group and selected k, plot the static FC and occurrence-weighted dFC(t) matrices.
+Step39_r_LE_group_state_dimtaker_LEfull.py - For the subject file group and selected k, do PCA on the LE(t) across subjects and retrieve the PCs.
 
-Step40_r_LE_group_state_dimtaker_LEfull.py - For the subject file group and selected k, do PCA on the LE(t) across subjects and retrieve the PCs.
+Step40_r_LE_group_state_dimtaker_LEfull.R - For the subject group and the specified k, plot the 75% and 25% Q1-3 whiskers for the PCs for each state. For three random subjects, plot LE(t) as dots where colors are states along three PC dimensions.
 
-Step41_r_LE_group_state_dimtaker_LEfull.R - For the subject group and the specified k, plot the 75% and 25% Q1-3 whiskers for the PCs for each state. For three random subjects, plot LE(t) as dots where colors are states along three PC dimensions.
+Step41_r_LE_group_staterecon_highlow_score.R - For the subject group and the specified k, average for the specific set of selected network reconfiguration metrics and rank subjects according to it.
 
-Step42_r_LE_group_staterecon_highlow_score.R - For the subject group and the specified k, average for the specific set of selected network reconfiguration metrics and rank subjects according to it.
+Step42_r_LE_group_staterecon_highlow_normtest.R - For the subject group and the specified k, plot the Q-Q and scatter plots for the sets of summary network reconfiguration metrics and state dFC(t) strength and variability.
 
-Step43_r_LE_group_staterecon_highlow_normtest.R - For the subject group and the specified k, plot the Q-Q and scatter plots for the sets of summary network reconfiguration metrics and state dFC(t) strength and variability.
+Step43_r_LE_group_staterecon_highlow_corr.R - For the subject group and the specified k, get the average for the specific target set of network reconfiguration metrics and find the Pearson's correlations and associated p-values with edge-averaged dFC(t) strength and variability for each state. 
 
-Step44_r_LE_group_staterecon_highlow_corr.R - For the subject group and the specified k, get the average for the specific target set of network reconfiguration metrics and find the Pearson's correlations and associated p-values with edge-averaged dFC(t) strength and variability for each state. 
+Step44_r_LE_group_staterecon_highlow_corr_FDR.m - For the subject group and the specified k, FDR-correct the p-values for the correlation between strength and variability with reconfiguration set average scores across all sets of interest.
 
-Step45_r_LE_group_staterecon_highlow_corr_FDR.m - For the subject group and the specified k, FDR-correct the p-values for the correlation between strength and variability with reconfiguration set average scores across all sets of interest.
+Step45_r_LE_group_state_strvar_highlow_score.R - For the subject group and the specified k, read in the strength and variability data each state and rank subjects according to the average values.
 
-Step46_r_LE_group_state_strvar_highlow_score.R - For the subject group and the specified k, read in the strength and variability data each state and rank subjects according to the average values.
+Step46_r_LE_group_state_strvar_highlow_subview.py - For the subject file group and selected k, plot the dFC states for the top and bottom 10% of average strength and variability scores.
 
-Step47_r_LE_group_state_strvar_highlow_subview.py - For the subject file group and selected k, plot the dFC states for the top and bottom 10% of average strength and variability scores.
+Step47_r_LE_group_statek.m - For the subject group, use the group clustering and the centroids for each k to produce the cluster validity indices to produce the elbow plot, where lower values are better.
 
-Step48_r_LE_group_statek.m - For the subject group, use the group clustering and the centroids for each k to produce the cluster validity indices to produce the elbow plot, where lower values are better.
+Step48_r_LE_group_statek_vis.R - For the subject group, plot the cluster validity index for each k to produce the elbow plot.
 
-Step49_r_LE_group_statek_vis.R - For the subject group, plot the cluster validity index for each k to produce the elbow plot.
+Step49_r_LE_group_state_brainvis.R - For the subject group, plot the ROIs with positive LE values for each state across the ks of interest on the brain.
 
-Step50_r_LE_group_state_brainvis.R - For the subject group, plot the ROIs with positive LE values for each state across the ks of interest on the brain.
-
-Step51_r_colenetwork_vis.R - For each network, delineate it in brain ROIs by color.
+Step50_r_colenetwork_vis.R - For each network, delineate it in brain ROIs by color.
 

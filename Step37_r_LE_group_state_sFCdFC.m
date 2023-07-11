@@ -13,7 +13,7 @@ subcorr_sFCdFC.csv Correlation between occurence-weighted dFC(t) mean and static
 %}
 
 %Define command line arguments.
-function [] = Step38_r_LE_group_state_sFCdFC(subfile,k)
+function [] = Step37_r_LE_group_state_sFCdFC(subfile,k)
 disp(append('Doing ',subfile,' ',k));
 
 %Set up I/O. 
