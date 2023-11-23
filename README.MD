@@ -2,8 +2,7 @@ Versions:
 
 Packages.txt - Lists Python, MATLAB, and R versions and relevant packages with corresponding versions.
 
-
-
+----------
 Files:
 
 atlasMvec2.csv - Upper triangular matrix vectorization indices.
@@ -18,107 +17,112 @@ fit_L_tocurve_area.m - Script for plotting elbow plot in MATLAB retrieved from: 
 
 elbow_k.m - Script for plotting elbow plot in MATLAB which uses cluster_goodness.m and fit_L_tocurve_area.m.
 
-
-
+----------
 Analysis:
 
-Step01_r_param_maker.py - Read HCP1200 subjects with resting-state fMRI scans based on the directory structure extracted from DataLad.
+1. Extract ICA-FIX resting-state fMRI data and motion.
+param_maker.py - Read HCP1200 subjects with resting-state fMRI scans based on the directory structure extracted from DataLad.
 
-Step02_r_fmri_get.txt - For each resting-state subject ID, extract the associated 3T REST1-2 ICA-FIX surface-based fMRI data files from the DataLad repository.
+fmri_get.txt - For each resting-state subject ID, extract the associated 3T REST1-2 ICA-FIX surface-based fMRI data files from the DataLad repository.
 
-Step03_r_voxdemean.py - For each resting-state scan for each subject ID, subtract mean BOLD timeseries voxelwise.
+voxdemean.py - For each resting-state scan for each subject ID, subtract mean BOLD timeseries voxelwise.
 
-Step04_r_meants_do.txt - For each resting-state subject ID, use the 360 cortical Glasser atlas to average demeaned voxelwise fMRI data.
+meants_do.txt - For each resting-state subject ID, use the 360 cortical Glasser atlas to average demeaned voxelwise fMRI data.
 
-Step05_r_motion_get.txt - For each resting-state subject ID, extract the associated 3T REST1-2 fMRI relative FD at each data point from the DataLad repository.
+motion_get.txt - For each resting-state subject ID, extract the associated 3T REST1-2 fMRI relative FD at each data point from the DataLad repository.
 
-Step06_r_subselector.py - Read in all participants with ICA-FIX 3T resting-state data, then isolate participants who have all four scans. Use the HCP1200 data dictionary to isolate participants who have all 10 cognitive test scores of interest. Retrieve the mean relative FD for each participant for each run and exclude participants with higher than 0.2 in any run. Find the intersection across subjects and output the full list for analysis and a half list to examine parameters.
+2. Select subjects.
+subselector.py - Read in all participants with ICA-FIX 3T resting-state data, then isolate participants who have all four scans. Use the HCP1200 data dictionary to isolate participants who have all 10 cognitive test scores of interest. Retrieve the mean relative FD for each participant for each run and exclude participants with higher than 0.2 in any run. Find the intersection across subjects.
 
-Step07_c_cogscorer.py - For the subject group, extract 10 cognitive test scores of interest for each subject, then find the first PC from PCA to use as g.
+3. Do LEiDA and extract reconfiguration metrics.
+LE_dFC.m - For the mean ROI fMRI timeseries for each run and each participant, conduct LEiDA.
 
-Step08_c_predstat.R - For the subject group, gather g, cognitive tests used to find g, and confounds into one file.
+LE_group_statecalc.m - For the LE(t) for each run and each participant, stack them and conduct k-medians clustering with a specified k for one random iteration of 500. 
 
-Step09_c_cogboot.R - For the subject group, do bootstrap resampling for the g PC1 loadings.
+LE_group_iter_compare.py - Find the best iteration of k-medians clustering for each k. Values with lower within-cluster sum of distance (WCS) scores are better.
 
-Step10_r_LE_dFC.m - For the mean ROI fMRI timeseries for each run and each participant, conduct LEiDA.
+LE_group_stateanalyze.m - For the best clustering, generate 2D matrices for LE(t) centroids and dFC(t) centroids by averaging according to the clustering. 
 
-Step11_r_LE_group_statecalc.m - Read in the subject file for all subjects. For the LE(t) for each run and each participant, stack them and conduct k-medians clustering with a specified k for one random iteration of 500. 
+LE_group_statesort.py - For the set of LE or dFC centroids across a range of k, print out the 2D images and generate a table which sorts them. Then, visually sort them and edit the table. Run this code again with the edited table to visualize the sorted plots.
 
-Step12_r_LE_iter_compare.py - For the current subject group for the subject file, find the best iteration of k-medians clustering for each k. Values with lower within-cluster sum of distance (WCS) scores are better.
+LE_group_stateclass.py - For the selected k, use the sorting matrix to translate the original clustering to the universal indices across k.
 
-Step13_r_LE_group_stateanalyze.m - Read in the subject file for all subjects. For the best clustering, generate 2D matrices for LE(t) and dFC(t) centroids by averaging according to the clustering. Next, average while multiplying the dFC(t) by occurrence.
+LE_group_statestat.m - For the specified k, find the frequency metrics for each run separately, then average across runs. This includes occurrence, dwell time, transition number, and transition probability.
 
-Step14_r_LE_group_statesort.py - For the set of LE or dFC centroids at each k, print out the 2D images and generate a table which sorts them. Then, visually sort them and edit the table. Run this code again with the edited table to visualize the sorted plots.
+LE_group_statejump.py - For the selected k and subject ID, find the average transition distance between LE(t) for given clustering transitions within each run, then average across runs.
 
-Step15_r_LE_group_stateclass.py - For the subject file group and selected k, use the sorting matrix to translate the original clustering to the universal indices across k.
+LE_group_statejump_gather.py - For the selected k, gather the transition distances across all subjects.
 
-Step16_r_LE_group_statestat.m - For the subject group and the specified k, find the dynamics metrics for  each run separately, then average across runs. This includes occurrence, dwell time, transition number, and transition probability.
+LE_group_statesim.py - For the selected k and subject ID, find the average idiosyncrasy of each LE(t) from group LE(t) across runs.
 
-Step17_r_LE_group_statejump.py - For the subject file group, selected k, and subject ID, find the average transition distance between LE(t) for given clustering transitions within each run, then average across runs.
+LE_group_statesim_gather.py - For the selected k, gather the idiosyncrasies across all subjects.
 
-Step18_r_LE_group_statejump_gather.py - For the subject file group and selected k, gather the transition distances across all subjects.
+4. Extract cognitive scores and confounds.
+predstat.R - Gather cognitive tests and confounds into one file.
 
-Step19_r_LE_group_statesim.py - For the subject file group, selected k, and subject ID, find the average idiosyncrasy of each LE(t) from group LE(t) across runs.
+5. Do PLSC.
+r_LE_group_staterecon_PLSC.R - For the specified k, conduct PLSC where X = network reconfiguration metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, investigate bivariate normality and outliers for significant latent variable pairs and correlate, conduct bootstrap resampling on loadings, and investigate reproducibility of singular values and loadings.
 
-Step20_r_LE_group_statesim_gather.py - For the subject file group and selected k, gather the idiosyncrasies across all subjects.
+r_LE_group_staterecon_PLSC_distplots.R - For the specified k, color the distribution of reconfiguration values across subjects in box plots by the PLSC loading with different colors for stable values. 
 
-Step21_r_LE_group_staterecon_normtest.R - For the subject group and the specified k, plot the Q-Q and scatter plots for the dynamics metrics and the cognitive variable.
+6. Do univariate analyses.
+cogscorer_PCA.py - Do PCA to extract the first PC score and loadings to use as gPCA. 
 
-Step22_r_LE_group_state_unicorr.R - For the subject group and the specified k, find the Pearson's correlations between the dynamics metrics and the cognitive variables and the corresponding uncorrected p-values.
+subselector_FA.py - Relax the fMRI requirement to increase sample size to improve cognitive score extraction.  Get cognitive score data for expanded sample and add gPCA to it.
 
-Step23_r_LE_group_statejump_unicorr.R - For the subject group and the specified k, find the Pearson's correlations between the transition distance metrics and the cognitive variables and the corresponding uncorrected p-values.
+cogscorer_FA.R - For the expanded sample, conduct EFA and CFA and retrieve scores and loadings.
 
-Step24_r_LE_group_statesim_unicorr.R - For the subject group and the specified k, find the Pearson's correlations between the idiosyncrasy metrics and the cognitive variables and the corresponding uncorrected p-values.
+predstat_expanded.R - Gather cognitive tests and confounds into one file, with the addition of gPCA, gEFA, and gCFA.
 
-Step25_r_LE_group_staterecon_unicorr_FDR.m - For the subject group and the specified k, extract the dynamics, transition distance, and idiosyncrasy p-values. FDR-correct to generate new p-values and threshold correlations with them.
+cogcorr.R - For the specified k, find the correlations between gPLSC, gPCA, gEFA, gCFA, and the 10 input cognitive variables.
 
-Step26_r_LE_group_staterecon_unicorr_FDR.R - For the subject group and the specified k, show box plots for the distributions of reconfiguration metrics across subjects. Additionally, explore coloring by significant correlations for box plots and bar plots.
+LE_group_staterecon_normtest.R - For the specified k, for pairs of cognitive and network reconfiguration variables, conduct bivariate normality tests, plot scatterplots, and plot QQ plots.
 
-Step27_r_LE_group_staterecon_PLSC.R - For the subject group and the specified k, conduct PLSC where X = network reconfiguration metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, conduct bootstrap resampling on loadings, and investigate reproducibility of singular values and loadings.
+LE_group_state_unicorr.R - For the specified k and cognitive variable, find the correlations with the frequency metrics and the corresponding uncorrected p-values.
 
-Step28_r_LE_group_staterecon_PLSC_distplots.R - For the subject group and the specified k, color the distribution of reconfiguration values across subjects in box plots by the PLSC loading with different colors for stable values. 
+LE_group_statejump_unicorr.R - For the specified k and cognitive variable, find the correlations with the transition distance metrics and the corresponding uncorrected p-values.
 
-Step29_r_methods.m - Produce sample dFC(t) and LE(t) to visualize for the methods description.
+LE_group_statesim_unicorr.R - For the specified k and cognitive variable, find the correlations with the idiosyncrasy metrics and the corresponding uncorrected p-values.
 
-Step30_r_methods.py - Visualize sample fMRI timeseries, dFC(t), and LE(t) for the methods description.
+LE_group_staterecon_unicorr_FDR.m - For the specified k and cognitive variable, extract the frequency, transition distance, and idiosyncrasy p-values. FDR-correct to generate new p-values and threshold correlations with them.
 
-Step31_r_hilbert_plot.m - Visualize Hilbert transform for sample fMRI timeseries for the methods description.
+LE_group_staterecon_unicorr_FDR.R - # For the specified k and cognitive variable, show box plots for the distributions of reconfiguration metrics across subjects. Additionally, explore coloring by significant correlations for box plots and bar plots.
 
-Step32_r_LE_group_state_vis.py - For the subject file group and selected k, plot the 2D dFC or LE states to display.
+7. Do summary score co-existence analysis.
+LE_group_staterecon_summary_score.R - For the specified k, average for the specific set of selected network reconfiguration metrics.
 
-Step33_r_LE_group_state_quantradar.R - For the subject group and the specified k, separately average the positive and negative LE(t) values for each region for each network to produce a score.
+LE_group_staterecon_summary_normtest.R - For the specified k, for pairs of summary scores relating to g or processing speed, conduct bivariate normality tests, plot scatterplots, and plot QQ plots.
 
-Step34_r_LE_group_statestd_vis.py - For the subject file group and selected k, plot the dFC variability matrices for each state.
+LE_group_staterecon_summary_corr.R - For the specified k, for pairs of summary scores relating to g or processing speed, find the correlations and associated p-values.
 
-Step35_r_LE_group_state_strvar.m - For the subject group and the specified k, calculate the average dFC(t) strength and variability across edges for each state and across all states for each subject.
+LE_group_staterecon_summary_corr_FDR.m - For the specified k, FDR-correct the p-values for the correlation between pairs of summary scores relating to g or processing speed.
 
-Step36_r_LE_group_state_strvar_collect.m - For the subject group and the specified k, gather the average dFC(t) strength and variability across edges for each state and across all states from all subjects.
+8. Visualize, for a specified k, the dFC and LE states, and average positive and negative LE scores in radar plots.
+r_LE_group_state_vis.py - For the selected k, plot the 2D dFC or LE states to display with and without limits.
 
-Step37_r_LE_group_state_sFCdFC.m - For the subject group and the specified k, calculate the occurrence-weighted dFC(t) mean and Pearson's correlation static FC for each subject. Calculate the correlation and average across all subjects.
+r_LE_group_state_quantradar.R - For the specified k, separately average the positive and negative LE values for each region for each network to produce a score. 
 
-Step38_r_LE_group_state_sFCdFC_vis.py - For the subject file group and selected k, plot the static FC and occurrence-weighted dFC(t) matrices.
+9. Visualize, for a range of k, the elbow plot, and positive LE scores on the brain.
+LE_group_state_elbow.m - Use the group clustering and the centroids for each k to produce the cluster validity indices to produce the elbow plot, where lower values are better.
 
-Step39_r_LE_group_state_dimtaker_LEfull.py - For the subject file group and selected k, do PCA on the LE(t) across subjects and retrieve the PCs.
+LE_group_state_elbow_vis.R - Plot the cluster validity index for each k to produce the elbow plot.
 
-Step40_r_LE_group_state_dimtaker_LEfull.R - For the subject group and the specified k, plot the 75% and 25% Q1-3 whiskers for the PCs for each state. For three random subjects, plot LE(t) as dots where colors are states along three PC dimensions.
+LE_group_state_brainvis.R - Plot the ROIs with positive LE values for each state across the ks of interest on the brain.
 
-Step41_r_LE_group_staterecon_highlow_score.R - For the subject group and the specified k, average for the specific set of selected network reconfiguration metrics and rank subjects according to it.
+10. Visualize ICNs on the brain.
+colenetwork_vis.R - For each network, delineate it in brain ROIs by color.
 
-Step42_r_LE_group_staterecon_highlow_normtest.R - For the subject group and the specified k, plot the Q-Q and scatter plots for the sets of summary network reconfiguration metrics and state dFC(t) strength and variability.
+11. Visualize FC strength and variability.
+LE_group_state_FC_strvar.m - For the specified k and participant, extract dFC(t) across and within states and within runs, calculate mean for FC strength and std for FC variability, average across runs.
 
-Step43_r_LE_group_staterecon_highlow_corr.R - For the subject group and the specified k, get the average for the specific target set of network reconfiguration metrics and find the Pearson's correlations and associated p-values with edge-averaged dFC(t) strength and variability for each state. 
+LE_group_state_FC_strvar_collect.m - For the specified k, collect the dFC FC strength and variability across all states and within states from all participants. Generate averaged 2D matrices from vectorized forms.
 
-Step44_r_LE_group_staterecon_highlow_corr_FDR.m - For the subject group and the specified k, FDR-correct the p-values for the correlation between strength and variability with reconfiguration set average scores across all sets of interest.
+LE_group_state_FC_strvar_vis.py - For the selected k, calculate the correlation between total FC strength and variability across states, plot the FC strength and variability within each state as 2D matrices with limits, and plot the FC strength and variability within each state as histograms.
 
-Step45_r_LE_group_state_strvar_highlow_score.R - For the subject group and the specified k, read in the strength and variability data each state and rank subjects according to the average values.
+12. Visualize methods figure items.
+methods.m - Produce sample dFC(t) and LE(t) to visualize for the methods description.
 
-Step46_r_LE_group_state_strvar_highlow_subview.py - For the subject file group and selected k, plot the dFC states for the top and bottom 10% of average strength and variability scores.
+methods.py - Visualize sample fMRI timeseries, dFC(t), and LE(t) for the methods description.
 
-Step47_r_LE_group_statek.m - For the subject group, use the group clustering and the centroids for each k to produce the cluster validity indices to produce the elbow plot, where lower values are better.
-
-Step48_r_LE_group_statek_vis.R - For the subject group, plot the cluster validity index for each k to produce the elbow plot.
-
-Step49_r_LE_group_state_brainvis.R - For the subject group, plot the ROIs with positive LE values for each state across the ks of interest on the brain.
-
-Step50_r_colenetwork_vis.R - For each network, delineate it in brain ROIs by color.
+hilbert_plot.m - Visualize Hilbert transform for sample fMRI timeseries for the methods description.
 

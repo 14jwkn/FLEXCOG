@@ -18,10 +18,10 @@ Bioinformatics Toolbox
 R: R 4.1.0
 tidyverse 2.0.0
 reticulate 1.28
-InPosition 0.12.7.1
 TExPosition 2.6.10.1
 PTCA4CATA 0.1.0
 data4PCCAR 0.1.1
+MVN 5.9
 ggplot2 3.4.2
 gg3D 0.0.0.9000
 ggradar 0.2
