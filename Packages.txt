@@ -30,3 +30,6 @@ ggsegGlasser 1.0.01
 gridExtra 2.3
 patchwork 1.1.2
 scico 1.3.1
+psych 2.3.9
+GPArotation 2023.8-1
+lavaan 0.6-16
