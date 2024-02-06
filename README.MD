@@ -36,7 +36,7 @@ Analysis:
 
     subselector.py - Read in all participants with ICA-FIX 3T resting-state data, then isolate participants who have all four scans. Use the HCP1200 data dictionary to isolate participants who have all 10 cognitive test scores of interest. Retrieve the mean relative FD for each participant for each run and exclude participants with higher than 0.2 in any run. Find the intersection across subjects.
 
-3. Do LEiDA and extract reconfiguration metrics.
+3. Do LEiDA, extract reconfiguration metrics, and assess ICC.
 
     LE_dFC.m - For the mean ROI fMRI timeseries for each run and each participant, conduct LEiDA.
 
@@ -52,14 +52,16 @@ Analysis:
 
     LE_group_statestat.m - For the specified k, find the frequency metrics for each run separately, then average across runs. This includes occurrence, dwell time, transition number, and transition probability.
 
-    LE_group_statejump.py - For the selected k and subject ID, find the average transition distance between LE(t) for given clustering transitions within each run, then average across runs.
+    LE_group_statejump.py - For the selected k and subject ID, find the average transition distance between LE(t) for given clustering transitions within each run, and average across runs.
 
-    LE_group_statejump_gather.py - For the selected k, gather the transition distances across all subjects.
+    LE_group_statejump_gather.py - For the selected k, gather the transition distances across all subjects across runs and within run.
 
-    LE_group_statesim.py - For the selected k and subject ID, find the average idiosyncrasy of each LE(t) from group LE(t) across runs.
+    LE_group_statesim.py - For the selected k and subject ID, find the average idiosyncrasy of each LE(t) from group LE(t) across runs and within run.
 
-    LE_group_statesim_gather.py - For the selected k, gather the idiosyncrasies across all subjects.
+    LE_group_statesim_gather.py - For the selected k, gather the idiosyncrasies across all subjects across runs and within run.
 
+    LE_group_staterecon_ICC.R - For the specified k, find ICC(1,1) between the session averages across runs for each network reconfiguration metric.
+    
 4. Extract cognitive scores and confounds.
 
     predstat.R - Gather cognitive tests and confounds into one file.

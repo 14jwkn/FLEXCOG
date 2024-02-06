@@ -3,9 +3,9 @@
 """
 For the selected k and subject ID, find the average 
 transition distance between LE(t) for given clustering transitions within each 
-run, then average across runs.
+run, and average across runs.
 Output:
-statejump.h5 Contains all transition distances for each subject.
+statejump.h5 Contains all transition distances for each subject, across runs and within run.
 
 Usage: 
     LE_group_statejump.py <k> <subject>
@@ -175,5 +175,14 @@ if __name__ == '__main__':
     outkey = ('/transmean')
     store = pd.HDFStore(outfile)
     store.put(outkey,avg_transmean,format='table')
+    store.close()
+
+    #Package run version.
+    rout_transmean = pd.DataFrame(run_transmean,index=runs,columns=translabs).T
+    
+    #Save.
+    outkey = ('/run_transmean')
+    store = pd.HDFStore(outfile)
+    store.put(outkey,rout_transmean,format='table')
     store.close()
     print('Saved.')     

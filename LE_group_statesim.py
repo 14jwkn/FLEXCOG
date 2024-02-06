@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-For the selected k and subject ID, find the average 
-idiosyncrasy of each LE(t) from group LE(t) across runs.
+For the selected k and subject ID, find the average idiosyncrasy of each LE(t) 
+from group LE(t) across runs and within run.
 Output:
-statesim.h5 Contains all idiosyncrasies for each subject.
+statesim.h5 Contains all idiosyncrasies for each subject, across runs and within run.
 
 Usage: 
     LE_group_statesim.py <k> <subject>
@@ -145,6 +145,33 @@ if __name__ == '__main__':
     
     #Save for the subject.
     outkey = ('/sub_'+subject)
+    store = pd.HDFStore(outfile)
+    store.put(outkey,outdist,format='table')
+    store.close()
+
+    #Retrieve runs.
+    rnts = 1200 - 2
+    runs = ['REST1_LR','REST1_RL','REST2_LR','REST2_RL']
+    nrun = len(runs)
+    
+    #Find the mean of these distances for each state and run.
+    run_meandist = np.zeros((nrun,int(k)))
+    for ridx in range(nrun):
+        startidx = (ridx)*rnts
+        endidx = (ridx+1)*rnts
+        runclust = subclust[startidx:endidx]
+        for kidx in range(int(k)):
+            
+            #Convert to nonzero indexing.
+            klab = kidx + 1
+            
+            #Find all values which belong to the state, save the average and std.
+            cbelong = windist[np.where(runclust == klab),0]
+            run_meandist[ridx,kidx] = np.mean(cbelong)
+
+    #Save for the subject.
+    outdist = pd.DataFrame(run_meandist,index=runs)
+    outkey = ('/runwise_'+subject)
     store = pd.HDFStore(outfile)
     store.put(outkey,outdist,format='table')
     store.close()

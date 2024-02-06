@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-For the selected k, gather the transition distances across
-all subjects.
+For the selected k, gather the transition distances across all subjects across 
+runs and within run.
 Output:
-transmean.csv Contains transition distances for all subjects.
+transmean.csv Contains transition distances for all subjects, across runs.
+crun+'_transmean.csv' Contains transition distances for all subjects, within run.
 
 Usage: 
     LE_group_statejump_gather.py <k> 
@@ -40,7 +41,6 @@ if __name__ == '__main__':
     
     #Generate a matrix for transition distances.
     transmean = np.zeros((nsub,nk*nk))
-
     for sidx in range(nsub):
         
         #Extract.
@@ -72,4 +72,33 @@ if __name__ == '__main__':
     os.makedirs(outpath,exist_ok=True)
     outfile = (outpath+'transmean.csv')
     transmean.to_csv(outfile)
+
+    #For each run.
+    runs = ['REST1_LR','REST1_RL','REST2_LR','REST2_RL']
+    nrun = len(runs)
+    for ridx in range(nrun):
+        crun = runs[ridx]
+
+        #Generate a matrix for transition distances.
+        transmean = np.zeros((nsub,nk*nk))
+        for sidx in range(nsub):
+            
+            #Extract.
+            csub = subjects[sidx]
+     
+            #Read in the transition distances for this run.
+            inpath = ('../outputs/r_stateflex/statecalc_test/LE/ver_MATLAB/group/'+
+                      subgroup+'/'+k+'/'+csub+'/') 
+            infile = (inpath+'statejump.h5')
+            inkey = ('/run_transmean')
+            store = pd.HDFStore(infile,'r')
+            transmean[sidx,:] = store.select(inkey).loc[:,crun]
+            store.close()
+        
+        #Package.
+        transmean = pd.DataFrame(transmean,index=subjects,columns=translabs)
+
+        #Save.
+        outfile = (outpath+crun+'_transmean.csv')
+        transmean.to_csv(outfile)
     print('Saved.')
