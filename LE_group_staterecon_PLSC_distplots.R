@@ -7,7 +7,6 @@
 #Set libraries.
 library(tidyverse)
 library(ggplot2)
-library(scico)
 
 #Catches arguments.
 args <- commandArgs(trailingOnly=T)
@@ -168,9 +167,8 @@ for (didx in 1:ndyn) {
               strip.text.x=element_blank(),
               panel.grid.minor.y=element_blank(),
               panel.grid.minor.x=element_blank()) +
-        scale_fill_scico(palette='berlin',
-                         midpoint=0,
-                         limits=c(minboot,maxboot)) +
+        scale_fill_gradient2(low='#4472C4',mid='#FFFFFF',high='#FF0000',
+                             midpoint=0,limits=c(minboot,maxboot)) +
         scale_y_continuous(breaks=xbreaks,
                            labels=xlabels) +
         scale_x_discrete(expand=c(0.2,0)) +
@@ -183,9 +181,8 @@ for (didx in 1:ndyn) {
               axis.title.x=element_blank(),
               panel.grid.minor.y=element_blank(),
               panel.grid.minor.x=element_blank()) +
-        scale_fill_scico(palette='berlin',
-                         midpoint=0,
-                         limits=c(minboot,maxboot)) +
+        scale_fill_gradient2(low='#4472C4',mid='#FFFFFF',high='#FF0000',
+                             midpoint=0,limits=c(minboot,maxboot)) +
         scale_y_continuous(breaks=xbreaks,
                            labels=xlabels) +
         scale_x_discrete(labels=inlabs) +

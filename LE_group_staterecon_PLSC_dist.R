@@ -1,7 +1,7 @@
-# For the specified k, conduct PLSC where X = network
-# reconfiguration metrics and Y = 10 cognitive tests of interest. Do PLSC to find
-# direction of loadings to flip, conduct permutation testing on singular values,
-# investigate bivariate normality and outliers for significant latent variable pairs and correlate, 
+# For the specified k, conduct PLSC where X = distance metrics and Y = 10 cognitive 
+# tests of interest. Do PLSC to find direction of loadings to flip, conduct 
+# permutation testing on singular values, investigate bivariate normality and 
+# outliers for significant latent variable pairs and correlate, 
 # conduct bootstrap resampling on loadings, investigate reproducibility of
 # singular values and loadings, investigate out-of-sample results from cross-validation,
 # and variance explained by in-sample and out-of-sample latent variables.
@@ -463,7 +463,7 @@ k <- args[1]
 subgroup <- 'full'
 basepath <- paste0('../outputs/r_stateflex/statecalc_test/LE/ver_MATLAB/group/',
                    subgroup,'/',k,'/')
-plscpath <-  paste0(basepath,'allreconfig/PLSC/')
+plscpath <-  paste0(basepath,'allreconfig/PLSC_dist/')
 
 #Set parameters.
 nk <- as.numeric(k)
@@ -486,10 +486,6 @@ cogmat <- othercog[,ourcog]
 ncog <- ncol(cogmat) - 1
 
 #Get predictor data.
-infile <- paste0(basepath,'avg_substat.csv')
-dynmat <- read_csv(infile,col_names=T) %>% 
-  rename_at(1,~'Subject')
-colnames(dynmat) <- gsub('sptrans_','trans_',colnames(dynmat))
 infile <- paste0(basepath,'statesim/meansim.csv')
 simmat <- read_csv(infile,col_names=T) %>% 
   rename_at(1,~'Subject')
@@ -498,10 +494,13 @@ colnames(simmat) <- gsub('State','sim',colnames(simmat))
 jumpmat <- read_csv(infile,col_names=T) %>% 
   rename_at(1,~'Subject')
 colnames(jumpmat) <- c('Subject',paste0('jump_',colnames(jumpmat)[2:ncol(jumpmat)]))
-predmat <- dynmat %>%
-  inner_join(simmat) %>%
-  inner_join(jumpmat)
+predmat <- jumpmat %>%
+  inner_join(simmat) 
 colnames(predmat) <- gsub('-','t',colnames(predmat))
+
+#Set labels.
+dynlabs <- c('jump_','sim_')
+ndyn <- length(dynlabs)
 
 #If there are NA in the matrix.
 if (any(is.na(predmat))) {
@@ -1009,8 +1008,6 @@ for (lidx in 1:nsv) {
   lytab[lidx,] <- ly_thres
   
   #Plot second version.
-  dynlabs <- c('occur','dwell','numtrans','trans_','sim_','jump_')
-  ndyn <- length(dynlabs)
   for (didx in 1:ndyn) {
     
     #Extract.
@@ -1200,8 +1197,6 @@ for (lidx in 1:nsv) {
   lytab[lidx,] <- ly_thres
   
   #Plot second version.
-  dynlabs <- c('occur','dwell','numtrans','trans_','sim_','jump_')
-  ndyn <- length(dynlabs)
   for (didx in 1:ndyn) {
     
     #Extract.

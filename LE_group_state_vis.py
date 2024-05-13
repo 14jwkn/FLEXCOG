@@ -3,7 +3,7 @@
 """
 For the selected k, plot the 2D dFC or LE states to display with and without limits.
 Output:
-'k'+statetype+'_unscaled.jpg' Plot containing auto-scaled dFC or LE 2D states.
+'k'+statetype+'_unscaled.jpg' Plot containing auto-scaled dFC or LE 2D states with color bar for own scaling.
 'k'+statetype+'.jpg' Plot containing cross-k scaled dFC or LE 2D states.
 'netleg_k'+statetype+'.jpg' Plot containing the network labels.
 'colleg_k'+statetype+'.jpg' Plot containing the color bar for cross-k scaling.
@@ -139,21 +139,34 @@ if __name__ == '__main__':
         reformatted = visvec(cwin,netlabels)
         state_collect.append(reformatted.iloc[1:,1:].values)
     
-    #Plot each k for state, unscaled.
+    #Plot each state unscaled, with colorbars.
     pidx = 0
-    fig, axs = plt.subplots(nrows=int(k),ncols=1)
+    fig, axs = plt.subplots(nrows=1,ncols=int(k))
     for ax, dat in zip(axs.ravel(),state_collect):
+
+        #Make the diagonal zero.
+        dat[np.diag_indices_from(dat)] = 0
 
         #Create color bar axes.
         divider = make_axes_locatable(ax)
         x_ax = divider.append_axes('top',size='10%',pad=0)
         y_ax = divider.append_axes('left',size='10%',pad=0)
+        b_ax = divider.append_axes('bottom',size='5%',pad=0.05)
         divnorm=colors.TwoSlopeNorm(vcenter=0)
         
-        #Plot.
+        #Plot. Change tick range if minimum is greater than zero.
         im = ax.imshow(dat,cmap='RdBu_r',norm=divnorm)
         x_ax.imshow(class_labels,aspect='auto',cmap=cmap)
         y_ax.imshow(np.transpose(class_labels),aspect='auto',cmap=cmap)
+        cbar = fig.colorbar(im,cax=b_ax,orientation='horizontal')
+        if np.min(dat) > 0:
+            ticks = [0,np.max(dat)]
+        else:
+            ticks = [np.min(dat),0,np.max(dat)]
+        cbar.set_ticks(ticks)
+        cbar.set_ticklabels([f'{tick:.3f}' for tick in ticks])
+        cbar.ax.tick_params(labelsize=5,rotation=270,width=0.5)
+        cbar.outline.set_linewidth(0.5)
         
         #Remove axes values.
         ax.axis('off')
@@ -177,9 +190,9 @@ if __name__ == '__main__':
     for i in range(int(k)):
         plabs.append(str(i+1))
         
-    #Plot each state, scaled.
+    #Plot each state scaled.
     pidx = 0
-    fig, axs = plt.subplots(nrows=int(k),ncols=1)
+    fig, axs = plt.subplots(nrows=1,ncols=int(k))
     for ax, dat in zip(axs.ravel(),state_collect):
 
         #Create color bar axes.
@@ -205,6 +218,14 @@ if __name__ == '__main__':
     outfile = outpath+'k'+statetype+'.jpg'
     plt.savefig(outfile,dpi=720)
     plt.close() 
+
+    #Save color bar.
+    plt.imshow(state_collect[0],cmap='RdBu_r',vmin=cmin,vmax=cmax)    
+    cbar = plt.colorbar()
+    cbar.ax.tick_params(labelsize=20) 
+    outfile = outpath+'colleg_k'+statetype+'.jpg'
+    plt.savefig(outfile,dpi=720,bbox_inches='tight')
+    plt.close()  
     
     #Save legend.
     handles = [Patch(facecolor=lut_dict[name]) for name in lut_dict]
@@ -213,13 +234,4 @@ if __name__ == '__main__':
     outfile = outpath+'netleg_k'+statetype+'.jpg'
     plt.savefig(outfile,dpi=720)
     plt.close()  
-    
-    #Save color bar.
-    plt.imshow(state_collect[0],cmap='RdBu_r',vmin=cmin,vmax=cmax)    
-    cbar = plt.colorbar()
-    cbar.ax.tick_params(labelsize=20) 
-    outfile = outpath+'colleg_k'+statetype+'.jpg'
-    plt.savefig(outfile,dpi=720,bbox_inches='tight')
-    plt.close()  
-
     

@@ -9,29 +9,25 @@ library(ggplot2)
 library(gridExtra)
 
 #Catches arguments.
-args = commandArgs(trailingOnly=T)
+args <- commandArgs(trailingOnly=T)
 k <- args[1]
-subset <- args[2]
 
 #Set base path.
 subgroup <- 'full'
 basepath <- paste0('../outputs/r_stateflex/statecalc_test/LE/ver_MATLAB/group/',
                   subgroup,'/',k,'/')
 sumpath <-  paste0(basepath,'allreconfig_summary/')
-outpath <- paste0(sumpath,'/unicorr/',subset,'/')
+outpath <- paste0(sumpath,'/unicorr/')
 dir.create(outpath,recursive=T)
 
 #Set parameters.
 nk <- as.numeric(k)
-if (subset == 'g') {
-  targlist <- c('g_dynwithin_pos','g_dynwithin_neg',
-                'g_auto','g_jumppos_between','g_jumpneg_between',
-                'g_simneg')
-} else if (subset == 'pr') {
-  targlist <- c('pr_dyn2345','pr_dyn_exit1_pos','pr_dyn_exit1_neg','pr_dyn_exit6_pos',
-                'pr_16auto',
-                'pr_simpos')
-}
+targlist <- c('g_dynwithin_pos','g_dynwithin_neg',
+              'g_auto','g_jumppos_between','g_jumpneg_between',
+              'g_simneg',
+              'pr_dyn2345','pr_dyn_exit1_pos','pr_dyn_exit1_neg','pr_dyn_exit6_pos',
+              'pr_16auto',
+              'pr_simpos')
 ntarg <- length(targlist)
 
 #Read in subjects and get length.

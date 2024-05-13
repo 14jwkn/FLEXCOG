@@ -97,20 +97,21 @@ for (setidx in 1:nsets) {
     if (cset == 'g_dynwithin_pos') {
       posvars <- c('dwell_2','dwell_3','trans_2t2','trans_3t3')
     } else if (cset == 'g_dynwithin_neg') {
-      posvars <- c('trans_1t6','trans_3t6')
+      posvars <- c('trans_1t6')
     } else if (cset == 'g_auto') {
-      posvars <- c('jump_2t2','jump_3t3','jump_4t4','jump_5t5')
+      posvars <- c('jump_2t2','jump_3t3','jump_5t5')
     } else if (cset == 'g_jumppos_between') {
-      posvars <- c('jump_2t3','jump_2t4','jump_3t5','jump_4t2','jump_4t6','jump_5t3','jump_6t4')
+      posvars <- c('jump_2t3','jump_2t4','jump_3t5','jump_4t2','jump_4t6','jump_6t4')
     } else if (cset == 'g_jumpneg_between') {
       posvars <- c('jump_1t3','jump_1t4','jump_1t5','jump_3t1','jump_5t1',
-                   'jump_2t5','jump_5t2')
+                   'jump_2t5')
     } else if (cset == 'g_simneg') {
       posvars <- c('sim_2','sim_3','sim_4','sim_5')
     } else if (cset == 'pr_dyn2345') {
       posvars <- c('occur_2','occur_3','occur_4','occur_5',
-                   'dwell_3','dwell_5',
-                   'trans_3t3','trans_5t5')
+                   'dwell_3',
+                   'trans_3t3','trans_5t5',
+                   'trans_4t5')
     } else if (cset == 'pr_dyn_exit1_pos') {
       posvars <- c('trans_1t3','trans_1t4','trans_1t5')
     } else if (cset == 'pr_dyn_exit1_neg') {

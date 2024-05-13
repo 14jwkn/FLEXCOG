@@ -32,7 +32,7 @@ if __name__ == '__main__':
     k = args['<k>']
     subject = args['<subject>']
     
-    #Set output file name. If it already exists, quit.
+    #Set output file name. 
     subgroup = 'full'
     outpath = ('../outputs/r_stateflex/statecalc_test/LE/ver_MATLAB/group/'+
                subgroup+'/'+k+'/'+subject+'/') 

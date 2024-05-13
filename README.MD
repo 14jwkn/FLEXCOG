@@ -36,7 +36,7 @@ Analysis:
 
     subselector.py - Read in all participants with ICA-FIX 3T resting-state data, then isolate participants who have all four scans. Use the HCP1200 data dictionary to isolate participants who have all 10 cognitive test scores of interest. Retrieve the mean relative FD for each participant for each run and exclude participants with higher than 0.2 in any run. Find the intersection across subjects.
 
-3. Do LEiDA, extract reconfiguration metrics, and assess ICC.
+3. Do LEiDA, extract reconfiguration metrics, assess ICC, and assess correlations.
 
     LE_dFC.m - For the mean ROI fMRI timeseries for each run and each participant, conduct LEiDA.
 
@@ -61,6 +61,8 @@ Analysis:
     LE_group_statesim_gather.py - For the selected k, gather the idiosyncrasies across all subjects across runs and within run.
 
     LE_group_staterecon_ICC.R - For the specified k, find ICC(1,1) between the session averages across runs for each network reconfiguration metric.
+
+    LE_group_staterecon_corr.R - For the specified k, find the correlations between reconfiguration variables and plot.
     
 4. Extract cognitive scores and confounds.
 
@@ -68,9 +70,9 @@ Analysis:
 
 5. Do PLSC.
 
-    r_LE_group_staterecon_PLSC.R - For the specified k, conduct PLSC where X = network reconfiguration metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, investigate bivariate normality and outliers for significant latent variable pairs and correlate, conduct bootstrap resampling on loadings, and investigate reproducibility of singular values and loadings.
+    LE_group_staterecon_PLSC.R - For the specified k, conduct PLSC where X = network reconfiguration metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, investigate bivariate normality and outliers for significant latent variable pairs and correlate, conduct bootstrap resampling on loadings, investigate reproducibility of singular values and loadings, investigate out-of-sample results from cross-validation, and variance explained by in-sample and out-of-sample latent variables.
 
-    r_LE_group_staterecon_PLSC_distplots.R - For the specified k, color the distribution of reconfiguration values across subjects in box plots by the PLSC loading with different colors for stable values. 
+    LE_group_staterecon_PLSC_distplots.R - For the specified k, color the distribution of reconfiguration values across subjects in box plots by the PLSC loading with different colors for stable values. 
 
 6. Do univariate analyses.
 
@@ -108,9 +110,9 @@ Analysis:
 
 8. Visualize, for a specified k, the dFC and LE states, and average positive and negative LE scores in radar plots.
 
-    r_LE_group_state_vis.py - For the selected k, plot the 2D dFC or LE states to display with and without limits.
+    LE_group_state_vis.py - For the selected k, plot the 2D dFC or LE states to display with and without limits.
 
-    r_LE_group_state_quantradar.R - For the specified k, separately average the positive and negative LE values for each region for each network to produce a score. 
+    LE_group_state_quantradar.R - For the specified k, separately average the positive and negative LE values for each region for each network to produce a score. 
 
 9. Visualize, for a range of k, the elbow plot, and positive LE scores on the brain.
 
@@ -139,3 +141,23 @@ Analysis:
     methods.py - Visualize sample fMRI timeseries, dFC(t), and LE(t) for the methods description.
 
     hilbert_plot.m - Visualize Hilbert transform for sample fMRI timeseries for the methods description.
+
+13. Visualize relationships between sFC and dFC.
+
+    LE_group_state_dFC_sFC_subject.py - Calculate the occurrence-weighted sum of dFC matrices for each subject.
+
+    LE_group_state_dFC_sFC_analyze.py - For the selected k, generate the state-wise sFC matrices, average dFC states, full sFC matrix, and occurrence-weighted average dFC matrix. Save and plot the matrices, and find the correlations between sFC and dFC matrices.
+
+    LE_group_state_dFC_sFC_normtest.R - For the specified k, generate scatter and QQ plots for every bivariate comparison between sFC and dFC and do multiple normality tests. 
+
+14. Visualize complimentary PCA analysis outputs.
+
+    LE_group_staterecon_PCA.R - For the specified k, conduct PCA on the cognition and network reconfiguration variables separately to check the relationship between the first PC and PLSC dimension. Also plot first and second PC loadings to see which network reconfiguration variables are similar.
+
+15. Visualize frequency-based and distance-based PLSC analysis outputs and relationships.
+
+    LE_group_staterecon_PLSC_freq.R - For the specified k, conduct PLSC where X = frequency metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, investigate bivariate normality and outliers for significant latent variable pairs and correlate, conduct bootstrap resampling on loadings, investigate reproducibility of singular values and loadings, investigate out-of-sample results from cross-validation, and variance explained by in-sample and out-of-sample latent variables.
+
+    LE_group_staterecon_PLSC_dist.R - For the specified k, conduct PLSC where X = distance metrics and Y = 10 cognitive tests of interest. Do PLSC to find direction of loadings to flip, conduct permutation testing on singular values, investigate bivariate normality and outliers for significant latent variable pairs and correlate, conduct bootstrap resampling on loadings, investigate reproducibility of singular values and loadings, investigate out-of-sample results from cross-validation, and variance explained by in-sample and out-of-sample latent variables.
+
+    LE_group_staterecon_PLSC_freqdist.R - For the specified k, investigate the relationship between the main and distance-based LVs, between the main and frequency-based LVs, and the first and second LVs of the main, distance-based, and frequency-based PLSCs. Also investigate normality of comparisons.
