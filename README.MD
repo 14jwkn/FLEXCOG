@@ -152,7 +152,7 @@ Analysis:
 
 14. Visualize complimentary PCA analysis outputs.
 
-    LE_group_staterecon_PCA.R - For the specified k, conduct PCA on the cognition and network reconfiguration variables separately to check the relationship between the first PC and PLSC dimension. Also plot first and second PC loadings to see which network reconfiguration variables are similar.
+    LE_group_staterecon_PCA.R - For the specified k, conduct PCA on the cognition and network reconfiguration variables separately to check the relationship between the first PC and PLSC dimension. Also plot first and second PC loadings to see which network reconfiguration variables are similar and examine variance explained.
 
 15. Visualize frequency-based and distance-based PLSC analysis outputs and relationships.
 

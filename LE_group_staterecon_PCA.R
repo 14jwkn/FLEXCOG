@@ -1,7 +1,7 @@
 # For the specified k, conduct PCA on the cognition and network reconfiguration
 # variables separately to check the relationship between the first PC and PLSC 
 # dimension. Also plot first and second PC loadings to see which network reconfiguration 
-# variables are similar.
+# variables are similar and examine variance explained.
 # Output:
 # newlab,'_PLSC.jpg' First PLSC dimension loadings. 
 # newlab,'_PCA.jpg' First PC loadings.
@@ -15,7 +15,6 @@
 
 #Set libraries.
 library(tidyverse)
-library(InPosition)
 library(ExPosition)
 library(PTCA4CATA)
 library(data4PCCAR)
@@ -305,13 +304,12 @@ for (seidx in 1:nset) {
 #Conduct PCA for cognition.
 set.seed(12345)
 data_XY <- data_Y
-cogpca <- epPCA.inference.battery(data_XY,scale=T,center=T,graphs=F,
-                                  test.iters=10000,critical.value=2.5)
-lvy_PCA <- -(cogpca$Fixed.Data$ExPosition.Data$fi)
+cogpca <- epPCA(data_XY,scale=T,center=T,graphs=F)
+lvy_PCA <- -(cogpca$ExPosition.Data$fi)
 rowlab <- row.names(lvy_PCA)
 lvy_PCA <- lvy_PCA[,1]
 names(lvy_PCA) <- rowlab
-loy_PCA <- -(cogpca$Fixed.Data$ExPosition.Data$fj)
+loy_PCA <- -(cogpca$ExPosition.Data$fj)
 rowlab <- row.names(loy_PCA)
 loy_PCA <- loy_PCA[,1]
 names(loy_PCA) <- rowlab
@@ -319,8 +317,7 @@ names(loy_PCA) <- rowlab
 #Conduct PCA for reconfiguration.
 set.seed(12345)
 data_XY <- data_X
-reconpca <- epPCA.inference.battery(data_XY,scale=T,center=T,graphs=F,
-                                  test.iters=10000,critical.value=2.5)
+reconpca <- epPCA(data_XY,scale=T,center=T,graphs=F)
 lvx_PCA <- reconpca$Fixed.Data$ExPosition.Data$fi
 rowlab <- row.names(lvx_PCA)
 lvx_PCA <- lvx_PCA[,1]
@@ -408,3 +405,12 @@ fig$zeMap + addArrows(plotmat, color = col$oc)
 outfile <- paste0(pcapath,'2PC_load.jpg')
 ggsave(outfile,units='in',width=14,height=14)
 dev.off()
+
+#Extract variance explained for first two PCs.
+cogexp <- cogpca$Fixed.Data$ExPosition.Data$t
+reconexp <- reconpca$Fixed.Data$ExPosition.Data$t
+cog12 <- sum(cogexp[1:2])
+recon12 <- sum(reconexp[1:2])
+print('Variance Explained for PC 1 to 2:')
+cat('Cognition:',cog12,'\n')
+cat('Reconfiguration:',recon12,'\n')
